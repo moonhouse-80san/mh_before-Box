@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+.mh_before_box { display: flex; margin: 10px 0; }
+.mh_before_inner { margin: auto; }
+
+.comparison-slider {
+	position: relative;
+	width: 100%;
+	margin: auto;
+	user-select: none;
+	overflow: hidden;
+	touch-action: pan-x;
+	line-height: 0;
+	/* height는 JS에서 동적으로 설정 */
+}
+
+.comparison-slider figure {
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	position: relative;
+}
+
+.comparison-slider > figure:last-of-type {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.comparison-slider > figure > img {
+	width: 100% !important;
+	height: 100% !important;
+	display: block;
+	object-fit: contain;
+	object-position: center;
+	pointer-events: none;
+}
+
+.comparison-slider > .slider {
+	position: absolute;
+	top: calc(50% - 20px);
+	left: 50%;
+	display: flex;
+	width: 40px;
+	height: 40px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	transform: translate3d(-20px, 0, 0);
+	background: #f1f1f1;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.45);
+	text-align: center;
+	cursor: grab;
+	z-index: 10;
+}
+
+.comparison-slider.dragging,
+.comparison-slider.dragging > .slider {
+	cursor: grabbing;
+}
+
+.comparison-slider.dragging > .slider {
+	background: #d2abff;
+}
+
+.comparison-slider > .slider > svg {
+	pointer-events: none;
+}
+
+.comparison-slider figcaption {
+	position: absolute;
+	bottom: 10px;
+	padding: 4px 10px;
+	background: rgba(0, 0, 0, 0.55);
+	color: #fff;
+	font-size: 13px;
+	line-height: 1.4;
+	border-radius: 4px;
+	transition: opacity 0.2s ease;
+	z-index: 5;
+}
+
+.comparison-slider > figure:first-of-type figcaption { left: 10px; }
+.comparison-slider > figure:last-of-type figcaption { right: 10px; }
+
+.comparison-slider figcaption.hide {
+	opacity: 0;
+	pointer-events: none;
+}

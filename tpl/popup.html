@@ -7,59 +7,85 @@
 	<a class="close_window" href="javascript:window.close()">&times;</a>
 </div>
 
-<div class="x_modal-body">
-	<form action="./" method="get" onSubmit="return false" id="fo" class="x_form-horizontal">
-		<input type="hidden" id="editor_sequence" value="{$editor_sequence}" />
-		<input type="hidden" id="module_srl" value="{$module_srl}" />
-		<input type="hidden" id="mid" value="{$mid}" />
-		<input type="hidden" id="src1" value="" />
-		<input type="hidden" id="src2" value="" />
+<form action="./" method="get" onSubmit="return false" id="fo">
+	<input type="hidden" id="editor_sequence" value="{$editor_sequence}" />
+	<input type="hidden" id="module_srl" value="{$module_srl}" />
+	<input type="hidden" id="mid" value="{$mid}" />
+	<input type="hidden" id="src1" value="" />
+	<input type="hidden" id="src2" value="" />
 
-		<div class="x_control-group">
-			<label class="x_control-label">{$lang->mh_before_upload1}</label>
-			<div class="x_controls">
-				<input type="file" id="upload_file1" accept="image/*" />
-				<span id="upload_status1" class="mh_before_upload_status"></span>
-				<div class="mh_before_preview_box">
-					<img id="preview_img1" src="" alt="" style="display:none" />
-				</div>
-				<input type="text" id="caption1" placeholder="{$lang->mh_before_caption_placeholder}" style="width:100%;margin-top:6px" />
-			</div>
-		</div>
+	<div id="popBody">
+		<table cellspacing="0" class="adminTable">
+			<col width="110" />
+			<col />
 
-		<div class="x_control-group">
-			<label class="x_control-label">{$lang->mh_before_upload2}</label>
-			<div class="x_controls">
-				<input type="file" id="upload_file2" accept="image/*" />
-				<span id="upload_status2" class="mh_before_upload_status"></span>
-				<div class="mh_before_preview_box">
-					<img id="preview_img2" src="" alt="" style="display:none" />
-				</div>
-				<input type="text" id="caption2" placeholder="{$lang->mh_before_caption_placeholder}" style="width:100%;margin-top:6px" />
-			</div>
-		</div>
+			<!-- Before 이미지 -->
+			<tr>
+				<th scope="row">{$lang->mh_before_upload1}</th>
+				<td>
+					<div class="row-inline">
+						<input type="file" id="upload_file1" accept="image/*" />
+						<span id="upload_status1" class="mh_before_upload_status"></span>
+					</div>
+					<div class="mh_before_preview_box mt6">
+						<img id="preview_img1" src="" alt="" style="display:none" />
+					</div>
+					<input type="text" id="caption1" class="inputTypeText mt6" style="width:100%;" placeholder="{$lang->mh_before_caption_placeholder}" />
+				</td>
+			</tr>
 
-		<div class="x_control-group">
-			<label for="width" class="x_control-label">{$lang->mh_before_width}</label>
-			<div class="x_controls">
-				<input type="number" id="width" value="100" min="10" max="100" style="width:80px" /> %
-				<div class="mh_before_help_text">{$lang->mh_before_width_help}</div>
-			</div>
-		</div>
+			<!-- After 이미지 -->
+			<tr>
+				<th scope="row">{$lang->mh_before_upload2}</th>
+				<td>
+					<div class="row-inline">
+						<input type="file" id="upload_file2" accept="image/*" />
+						<span id="upload_status2" class="mh_before_upload_status"></span>
+					</div>
+					<div class="mh_before_preview_box mt6">
+						<img id="preview_img2" src="" alt="" style="display:none" />
+					</div>
+					<input type="text" id="caption2" class="inputTypeText mt6" style="width:100%;" placeholder="{$lang->mh_before_caption_placeholder}" />
+				</td>
+			</tr>
 
-		<div class="x_control-group">
-			<label for="start_pos" class="x_control-label">{$lang->mh_before_start_pos}</label>
-			<div class="x_controls">
-				<input type="number" id="start_pos" value="50" min="0" max="100" style="width:80px" /> %
-				<div class="mh_before_help_text">{$lang->mh_before_start_pos_help}</div>
-			</div>
-		</div>
+			<!-- 슬라이더 너비 -->
+			<tr>
+				<th scope="row">{$lang->mh_before_width}</th>
+				<td>
+					<div class="row-inline">
+						<input type="number" id="width" class="inputTypeText" value="100" min="10" max="100" style="width:80px" /> %
+					</div>
+					<div class="mh_before_help_text">{$lang->mh_before_width_help}</div>
+				</td>
+			</tr>
 
-		<div class="x_clearfix btnArea">
-			<div class="x_pull-right">
-				<button type="button" id="btn_insert" class="x_btn x_btn-primary">{$lang->cmd_insert}</button>
-				<a href="#" onclick="window.close(); return false;"><button type="button" class="x_btn">{$lang->cmd_close}</button></a>
-			</div>
+			<!-- 시작 위치 -->
+			<tr>
+				<th scope="row">{$lang->mh_before_start_pos}</th>
+				<td>
+					<div class="row-inline">
+						<input type="number" id="start_pos" class="inputTypeText" value="50" min="0" max="100" style="width:80px" /> %
+					</div>
+					<div class="mh_before_help_text">{$lang->mh_before_start_pos_help}</div>
+				</td>
+			</tr>
+
+			<!-- 슬라이더 전체 하단 문구 -->
+			<tr>
+				<th scope="row">{$lang->mh_before_bottom_caption}</th>
+				<td>
+					<textarea id="bottom_caption" class="inputTypeText" style="width:100%;height:60px;" placeholder="{$lang->mh_before_bottom_caption_placeholder}"></textarea>
+					<div class="mh_before_help_text">{$lang->mh_before_bottom_caption_help}</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="x_clearfix btnArea">
+		<div class="x_pull-right">
+			<button type="button" id="btn_insert" class="x_btn x_btn-primary">{$lang->cmd_insert}</button>
+			<a href="#" onclick="window.close(); return false;"><button type="button" class="x_btn">{$lang->cmd_close}</button></a>
 		</div>
-	</form>
-</div>
+	</div>
+</form>

@@ -16,6 +16,7 @@
 		$form.find('#src2').val(src2);
 		$form.find('#caption1').val(node.getAttribute('caption1') || '');
 		$form.find('#caption2').val(node.getAttribute('caption2') || '');
+		$form.find('#bottom_caption').val(node.getAttribute('caption') || '');
 		$form.find('#width').val(node.getAttribute('width') || 100);
 		$form.find('#start_pos').val(node.getAttribute('start_pos') || 50);
 
@@ -87,6 +88,7 @@
 			src2: src2,
 			caption1: $form.find('#caption1').val(),
 			caption2: $form.find('#caption2').val(),
+			caption: $form.find('#bottom_caption').val(),
 			width: parseInt($form.find('#width').val(), 10) || 100,
 			start_pos: parseInt($form.find('#start_pos').val(), 10)
 		};

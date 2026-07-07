@@ -60,6 +60,7 @@ class mh_before extends EditorHandler
 
 		$caption1 = trim($xml_obj->attrs->caption1 ?? '');
 		$caption2 = trim($xml_obj->attrs->caption2 ?? '');
+		$caption = trim($xml_obj->attrs->caption ?? '');
 
 		$before_info = new stdClass();
 		$before_info->id = 'mhBefore' . substr(md5($src1 . $src2 . microtime()), 0, 8);
@@ -74,6 +75,10 @@ class mh_before extends EditorHandler
 			: '';
 		$before_info->caption2_html = $caption2 !== ''
 			? '<figcaption>' . htmlspecialchars($caption2, ENT_QUOTES) . '</figcaption>'
+			: '';
+		// 슬라이더 전체 하단에 표시하는 문구 (Before/After 오버레이 라벨과는 별개)
+		$before_info->bottom_caption_html = $caption !== ''
+			? '<div class="mh_before_bottom_caption">' . nl2br(htmlspecialchars($caption, ENT_QUOTES)) . '</div>'
 			: '';
 
 		Context::set('before_info', $before_info);

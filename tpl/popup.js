@@ -80,10 +80,10 @@
 
 		var attrs = {
 			editor_component: 'mh_before',
-			// 글 작성 화면(에디터 iframe)에서는 transHTML() 변환이 실행되지 않고 태그가 그대로 보이므로,
-			// 실제로 그려질 src가 없으면 아무것도 표시되지 않는다. 코어의 image_gallery, poll_maker 컴포넌트와
-			// 동일하게 투명 1x1 이미지 + 점선 테두리 + 안내 배경으로 "여기 컴포넌트 있음"을 표시해 준다.
-			src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
+			// 글 작성 화면(에디터 iframe)에서는 transHTML() 변환이 실행되지 않고 태그가 그대로 보인다.
+			// 이전에는 투명 1x1 이미지 + 점선 테두리로 "여기 컴포넌트 있음"만 표시했지만,
+			// 이제는 Before 이미지(src1)를 실제 src로 사용해 에디터에서도 실제 이미지가 보이도록 한다.
+			src: src1,
 			src1: src1,
 			src2: src2,
 			caption1: $form.find('#caption1').val(),
@@ -97,11 +97,10 @@
 		var $img = $('<img />').attr(attrs);
 		$img.css({
 			display: 'block',
-			width: '100%',
-			height: '200px',
-			border: '2px dotted #4371B9',
-			background: "url('./modules/editor/components/mh_before/tpl/mh_before_placeholder.gif') no-repeat center",
-			backgroundSize: 'contain'
+			width: '300px',
+			height: 'auto',
+			border: '2px solid #4371B9',
+			cursor: 'pointer'
 		});
 		var iframe_obj = opener.editorGetIFrame(opener.editorPrevSrl);
 

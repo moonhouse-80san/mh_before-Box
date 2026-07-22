@@ -37,6 +37,11 @@ body { font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Malgun 
 	font-size: 13px;
 }
 
+.mh_before_url_input {
+	flex: 1;
+	min-width: 200px;
+}
+
 .mh_before_upload_status {
 	margin-left: 8px;
 	font-size: 12px;

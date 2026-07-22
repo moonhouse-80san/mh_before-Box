@@ -14,6 +14,8 @@
 
 		$form.find('#src1').val(src1);
 		$form.find('#src2').val(src2);
+		$form.find('#url_input1').val(src1);
+		$form.find('#url_input2').val(src2);
 		$form.find('#caption1').val(node.getAttribute('caption1') || '');
 		$form.find('#caption2').val(node.getAttribute('caption2') || '');
 		$form.find('#bottom_caption').val(node.getAttribute('caption') || '');
@@ -67,11 +69,39 @@
 		});
 	}
 
+	// 파일 업로드 대신 이미지 URL을 직접 입력해 적용하는 기능
+	function applyUrl(slot) {
+		var $status = $form.find('#upload_status' + slot);
+		var url = $.trim($form.find('#url_input' + slot).val());
+
+		if (!url) {
+			alert('이미지 URL을 입력해 주세요.');
+			return;
+		}
+
+		$form.find('#src' + slot).val(url);
+		showPreview(slot, url);
+		$status.text('URL 적용됨');
+	}
+
+	// URL 적용 버튼을 누르지 않고 등록을 시도한 경우를 대비해,
+	// #src{slot}이 비어 있으면 url_input에 입력된 값을 그대로 사용한다.
+	function getFinalSrc(slot) {
+		var direct = $.trim($form.find('#src' + slot).val());
+		if (direct) return direct;
+
+		var urlVal = $.trim($form.find('#url_input' + slot).val());
+		if (urlVal) {
+			$form.find('#src' + slot).val(urlVal);
+		}
+		return urlVal;
+	}
+
 	function insertComponent() {
 		if (typeof(opener) == "undefined") return;
 
-		var src1 = $.trim($form.find('#src1').val());
-		var src2 = $.trim($form.find('#src2').val());
+		var src1 = getFinalSrc(1);
+		var src2 = getFinalSrc(2);
 
 		if (!src1 || !src2) {
 			alert('두 이미지를 모두 업로드해 주세요.');
@@ -129,6 +159,22 @@
 		$form.find('#upload_file2').on('change', function() {
 			var file = this.files && this.files[0];
 			uploadImage(2, file);
+		});
+		$form.find('#btn_url_apply1').click(function() { applyUrl(1); });
+		$form.find('#btn_url_apply2').click(function() { applyUrl(2); });
+		$form.find('#url_input1, #url_input2').on('keydown', function(e) {
+			if (e.which !== 13) return;
+			e.preventDefault();
+			var slot = this.id === 'url_input1' ? 1 : 2;
+			applyUrl(slot);
+		});
+		$form.find('#url_input1, #url_input2').on('blur', function() {
+			var slot = this.id === 'url_input1' ? 1 : 2;
+			var url = $.trim($(this).val());
+			if (!url) return;
+			$form.find('#src' + slot).val(url);
+			showPreview(slot, url);
+			$form.find('#upload_status' + slot).text('URL 적용됨');
 		});
 		if (typeof(opener) != "undefined") getComponent();
 	});
